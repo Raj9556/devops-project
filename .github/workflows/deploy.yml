@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build, Test and Push
 
 on:
   push:
@@ -13,11 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
       - name: Build Docker image
-        run: docker build -t devops-project .
+        run: docker build -t srk96/devops-project:latest .
 
       - name: Run container and test
         run: |
-          docker run -d -p 5000:5000 --name test-container devops-project
+          docker run -d -p 5000:5000 --name test-container srk96/devops-project:latest
           sleep 3
           curl http://localhost:5000
+
+      - name: Push to Docker Hub
+        run: docker push srk96/devops-project:latest
