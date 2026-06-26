@@ -29,6 +29,4 @@ jobs:
         run: docker push srk96/devops-project:latest
 
       - name: Trigger Render Deploy
-        run: |
-          echo "Triggering deploy..."
-          curl -X GET "${{ secrets.RENDER_DEPLOY_HOOK }}"
+        run: curl -X GET "https://api.render.com/deploy/srv-d8vd86gk1i2s73c4suag?key=5BXADlzoi8s"
