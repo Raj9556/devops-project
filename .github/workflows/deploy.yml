@@ -1,4 +1,4 @@
-name: Build, Test and Push
+name: Build, Test, Push and Deploy
 
 on:
   push:
@@ -27,3 +27,6 @@ jobs:
 
       - name: Push to Docker Hub
         run: docker push srk96/devops-project:latest
+
+      - name: Trigger Render Deploy
+        run: curl "${{ secrets.RENDER_DEPLOY_HOOK }}"
