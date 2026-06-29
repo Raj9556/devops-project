@@ -21,8 +21,10 @@ jobs:
 
       - name: Run container and test
         run: |
-          docker run -d -p 5000:5000 --name test-container srk96/devops-project:latest
-          sleep 3
+          docker run -d -p 5000:5000 --name test-container \
+            -e DATABASE_URL=sqlite:///test.db \
+            srk96/devops-project:latest
+          sleep 5
           curl http://localhost:5000
 
       - name: Push to Docker Hub
