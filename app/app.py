@@ -20,7 +20,7 @@ def home():
         db.session.add(visit)
         db.session.commit()
         count = Visit.query.count()
-    return f"DevOps pipeline is alive. Total visits: {count}"
+    return f"DevOps pipeline is alive. Version 2. Total visits: {count}"
 
 @app.route("/health")
 def health():
